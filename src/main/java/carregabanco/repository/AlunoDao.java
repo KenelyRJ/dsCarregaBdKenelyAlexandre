@@ -1,12 +1,14 @@
 package carregabanco.repository;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
 import carregabanco.model.AlunoModel;
 
-public class AlunoDao {
+public class AlunoDao <Model>{
 
 	private static AlunoDao instance;
 	protected EntityManager entityManager;
@@ -35,14 +37,25 @@ public class AlunoDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<AlunoModel> findAll() {
+	public List<AlunoModel> findAll(Class<Model> c) {
 		return entityManager.createQuery("FROM " + AlunoModel.class.getName()).getResultList();
 	}
-
-	public void persist(AlunoModel aluno) {
+//salvar
+	public void persist(AlunoModel model) {
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.persist(aluno);
+			entityManager.persist(model);
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+//update
+	public void merge(AlunoModel model) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(model);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -50,22 +63,11 @@ public class AlunoDao {
 		}
 	}
 
-	public void merge(AlunoModel aluno) {
+	public void remove(AlunoModel model) {
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.merge(aluno);
-			entityManager.getTransaction().commit();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			entityManager.getTransaction().rollback();
-		}
-	}
-
-	public void remove(AlunoModel aluno) {
-		try {
-			entityManager.getTransaction().begin();
-			aluno = entityManager.find(AlunoModel.class, aluno.getIdPessoa());
-			entityManager.remove(aluno);
+			model = entityManager.find(AlunoModel.class, model.getIdPessoa());
+			entityManager.remove(model);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -75,8 +77,8 @@ public class AlunoDao {
 
 	public void removeById(final long id) {
 		try {
-			AlunoModel aluno = getById(id);
-			remove(aluno);
+			AlunoModel model = getById(id);
+			remove(model);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
