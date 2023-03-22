@@ -13,7 +13,7 @@ public class AlunoDao <Model>{
 	private static AlunoDao instance;
 	protected EntityManager entityManager;
 
-	private AlunoDao() {
+	public AlunoDao() {
 		entityManager = getEntityManager();
 	}
 

@@ -9,10 +9,10 @@ public class CarregaBancoView {
 	public CarregaBancoView() {
 		
 		CarregaBancoController carregaBancoController = new CarregaBancoController();
-		ArrayList<AlunoModel> valores = carregaBancoController.loader("alunostads.csv");
+		ArrayList<AlunoModel> valores = carregaBancoController.inserirNoBanco(aluno);
 		carregaBancoController.inserirNoBanco(valores);
 						
-		//A parte da visualização seria isso
+		//A parte da visualizaï¿½ï¿½o seria isso
 		System.out.println(valores.size());
 		for(AlunoModel n: valores)
 		System.out.println(n.getCampus() + " - " + n.getNome_estudante()+ " - " + n.getIdade());

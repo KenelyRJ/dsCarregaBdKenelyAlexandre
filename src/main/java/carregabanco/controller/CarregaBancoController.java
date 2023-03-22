@@ -6,9 +6,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import carregabanco.model.AlunoModel;
+import carregabanco.model.PessoaModel;
 import carregabanco.repository.AlunoDao;
 
 public class CarregaBancoController {
@@ -19,7 +21,7 @@ public class CarregaBancoController {
 		int opcao;
 
 		do {
-			System.out.println("Selecione a opÁ„o desejada:");
+			System.out.println("Selecione a op√ß√£o desejada:");
 			System.out.println("1 - Cadastrar ");
 			System.out.println("2 - Editar ");
 			System.out.println("3 - Buscar ");
@@ -33,10 +35,10 @@ public class CarregaBancoController {
 
 			switch (opcao) {
 			case 1:
-				inserir();
+				inserirNoBanco(scanner);
 				break;
-			case 2:
-				update();
+			/*case 2:
+				update(scanner);
 				break;
 			case 3:
 				buscar();
@@ -46,40 +48,66 @@ public class CarregaBancoController {
 				break;
 			case 5:
 				excluir();
-				break;
+				break;*/
 			case 0:
-				System.out.println("AtÈ a prÛxima!");
+				System.out.println("At√© a pr√≥xima!");
 				break;
 			default:
-				System.out.println("OpÁ„o inv·lida.");
+				System.out.println("Op√ß√£o inv√°lida.");
 			}
 		} while (opcao != 0);
 	}
 
-
-		Scanner scanner = new Scanner(System.in);
+	public static void inserirNoBanco(Scanner scanner) {
 		
-		System.out.println("Digite o nome da pessoa ");
-		String nome_estudante = scanner.nextLine();	
-		System.out.println("Digite a cordenaÁ„o ");
+		System.out.println("######################### Atualizar #########################");
+
+		System.out.println("Digite o nome do aluno ");
+		String nome_estudante = scanner.nextLine();
+		System.out.println("Digite a cordena√ß√£o ");
 		String coordenacao = scanner.next();
 		System.out.println("Digite o curso ");
 		String curso = scanner.next();
-		System.out.println("Digite a situaÁ„o ");
+		System.out.println("Digite a situa√ß√£o ");
 		String situacao = scanner.next();
-		System.out.println("Digite a o perÌodo de entrada ");
+		System.out.println("Digite a o per√≠odo de entrada ");
 		String periodo_entrada = scanner.next();
 		
+		AlunoModel aluno = new AlunoModel();
+		aluno.setNome_estudante(nome_estudante);
+		aluno.setCoordenacao(coordenacao);
+		aluno.setCurso(curso);
+		aluno.setSituacao(situacao);
+		aluno.setPeriodo_entrada(periodo_entrada);
 		
-			
-			
-	
-} catch (Exception e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
+		AlunoDao alunoDao = new AlunoDao();
+		alunoDao.persist(aluno);
+		
+		System.out.println("Aluno cadastro com sucesso");
+		
 
-	private static ArrayList<AlunoModel> valores = new ArrayList<AlunoModel>();
+	}
+
+	private void update(Scanner scanner) {
+
+		System.out.println("######################### Atualizar #########################");
+
+		System.out.println("Digite o nome do aluno ");
+		String nome_estudante = scanner.nextLine();
+		System.out.println("Digite a cordena√ß√£o ");
+		String coordenacao = scanner.next();
+		System.out.println("Digite o curso ");
+		String curso = scanner.next();
+		System.out.println("Digite a situa√ß√£o ");
+		String situacao = scanner.next();
+		System.out.println("Digite a o per√≠odo de entrada ");
+		String periodo_entrada = scanner.next();
+
+		AlunoModel alunoModel = new AlunoModel();
+		alunoModel.setNome_estudante(nome_estudante);
+	}
+
+	private ArrayList<AlunoModel> valores = new ArrayList<AlunoModel>();
 
 	public ArrayList<AlunoModel> loader(String file) {
 		try {
@@ -110,11 +138,4 @@ public class CarregaBancoController {
 		return valores;
 	}
 
-	public void inserirNoBanco(ArrayList<AlunoModel> listaDeAlunos) {
-		AlunoDao alunoDao = AlunoDao.getInstance();
-		for (AlunoModel aluno : listaDeAlunos) {
-			alunoDao.persist(aluno);
-		}
-
-	}
 }
