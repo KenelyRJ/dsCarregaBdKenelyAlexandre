@@ -20,12 +20,13 @@ public class AlunoModel extends PessoaModel implements Serializable {
 	private String periodo_entrada;
 	
 	public AlunoModel() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	public AlunoModel(String nome_estudante, String coordenacao, String curso, String situacao,
-			String periodo_entrada) {
-		super();
+			String periodo_entrada, long idPessoa, String campus, String polo, String email_institucional, int idade, String sexo) {
+		super(idPessoa, campus, polo, email_institucional, idade, sexo);
 		this.nome_estudante = nome_estudante;
 		this.coordenacao = coordenacao;
 		this.curso = curso;

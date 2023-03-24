@@ -26,6 +26,11 @@ public class PessoaModel implements Serializable{
 	private int idade;
 	private String sexo;
 	
+	public PessoaModel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public String getCampus() {
 		return campus;
 	}
@@ -63,6 +68,16 @@ public class PessoaModel implements Serializable{
 	}
 	public void setPolo(String polo) {
 		this.polo = polo;
+	}
+
+	public PessoaModel(long idPessoa, String campus, String polo, String email_institucional, int idade, String sexo) {
+		super();
+		this.idPessoa = idPessoa;
+		this.campus = campus;
+		this.polo = polo;
+		this.email_institucional = email_institucional;
+		this.idade = idade;
+		this.sexo = sexo;
 	}
 		
 }

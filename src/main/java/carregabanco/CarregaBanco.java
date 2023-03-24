@@ -60,7 +60,7 @@ public class CarregaBanco {
 
 	public static void inserirNoBanco(Scanner scanner) {
 		
-		System.out.println("######################### Atualizar #########################");
+		System.out.println("\n######################### Cadastrar Aluno #########################");
 
 		System.out.println("Digite o nome do aluno ");
 		String nome_estudante = scanner.nextLine();
@@ -73,6 +73,19 @@ public class CarregaBanco {
 		System.out.println("Digite a o período de entrada ");
 		String periodo_entrada = scanner.next();
 		
+		System.out.println("\n***** Dados para Pessoa *****");
+		
+		System.out.println("Digite o campus do aluno");
+		String campus = scanner.next();
+		System.out.println("Digite o polo ");
+		String polo = scanner.next();
+		System.out.println("Digite o email ");
+		String email_institucional = scanner.next();
+		System.out.println("Digite a idade ");
+		int idade = scanner.nextInt();
+		System.out.println("Digite o sexo");
+		String sexo = scanner.next();
+		
 		AlunoDao alunoDao = AlunoDao.getInstance();
 		
 		AlunoModel aluno = new AlunoModel();
@@ -81,12 +94,15 @@ public class CarregaBanco {
 		aluno.setCurso(curso);
 		aluno.setSituacao(situacao);
 		aluno.setPeriodo_entrada(periodo_entrada);
+		aluno.setCampus(campus);
+		aluno.setPolo(polo);
+		aluno.setEmail_institucional(email_institucional);
+		aluno.setIdade(idade);
+		aluno.setSexo(sexo);
 
 		alunoDao.persist(aluno);
 		
-		System.out.println("Aluno cadastro com sucesso");
-		
-		
+		System.out.println("\n***** Aluno cadastro com sucesso *****\n");
 
 	}
 }
